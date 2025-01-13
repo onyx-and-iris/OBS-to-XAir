@@ -18,7 +18,7 @@ This is a small script that mutes, unmutes and toggles groups of channels on Beh
 
 -   Download the repository files with git or the green `Code` button. Then in command prompt:
 
-```
+```bash
 cd OBS-to-XAir
 pip install .
 ```
@@ -27,17 +27,28 @@ pip install .
 
 -   Configure websocket settings within `OBS->Tools->obs-websocket Settings`
 
--   Open the included `config.toml` and set OBS host, port and password as well as the xair mixers kind and ip.
+-   Open the included `config.toml`, use it to:
+    -   Set the obs connection info `host`, `port` and `password`
 
-    -   Mixer kind may be any one of (`XR12, XR16, XR18, MR18, X32`)
+    -   Set the mixer's `kind_id` and `ip`.
+        -   Mixer kind_id may be any one of (`XR12, XR16, XR18, MR18, X32`)
 
--   Set the scene to channel mutes mapping in `mapping.toml`.
+    -   Set the scene to channel mapping.
 
 ## Usage
 
 Simply run the script, there will be confirmation of mixer connection and OBS connection if everything is successful. Switch between the defined scenes.
 
 Closing OBS will stop the script.
+
+#### CLI options
+
+-   `--config`: may be a full path to a config file or just a config name.
+    -   If only a config name is passed the script will look in the following locations, returning the first config found:
+        -   Current working directory (may be different from script location depending on how you launch the script)
+        -   In the directory the script is located.
+        -   `user home directory / .config / xair-obs`
+-   `--debug`, `--verbose`: separate logging levels. Debug will produce a lot of logging output.
 
 ## Further notes
 
@@ -47,12 +58,14 @@ Since this script relies upon two interfaces, `obsws-python` and `xair-api` this
 
 This script was developed and tested with:
 
--   OBS 28.01
--   obs-websocket 5.0.1
+-   OBS 31.0.0
+-   obs-websocket 5.5.4
 -   A Midas MR18 and an X32 emulator.
 
 ## Special Thanks
 
--   OBS team and the obs-websocket developers + Behringer/Midas for the OSC protocol.
--   [Adem](https://github.com/aatikturk) for contributions towards the obsws-python wrapper.
--   [Onyx-and-Iris](https://github.com/onyx-and-iris) for contributions towards the obsws-python and xair-api wrappers.
+-   [Lebaston](https://github.com/lebaston100) for the initial implementation of this script.
+-   OBS team and the obs-websocket developers.
+-   Behringer/Midas for making their mixers programmable!
+-   [Adem](https://github.com/aatikturk) for contributions towards the obsws-python clients.
+-   [Onyx-and-Iris](https://github.com/onyx-and-iris) for contributions towards the obsws-python and xair-api interfaces.
